@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Image Splitter | Advanced Image Grid Divider</title>
+    <meta name="description" content="Easily split and divide images into multiple grid sections. Perfect for designers, photographers, and content creators. Free online image tool.">
+    <meta name="keywords" content="image splitter, photo grid, image divider, photo cutter, online image tool">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/placeholder-logo.svg">
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="root" class="min-h-screen flex flex-col">
+        <header class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="/placeholder-logo.svg" alt="Logo" class="h-10 w-10 mr-4">
+                    <h1 class="text-xl font-bold text-gray-800">Image Splitter</h1>
+                </div>
+                <nav>
+                    <ul class="flex space-x-4">
+                        <li><a href="#features" class="text-gray-600 hover:text-blue-600">Features</a></li>
+                        <li><a href="#how-to-use" class="text-gray-600 hover:text-blue-600">How to Use</a></li>
+                        <li><a href="#faq" class="text-gray-600 hover:text-blue-600">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div id="image-splitter-app"></div>
+        </main>
+
+        <footer class="bg-gray-800 text-white py-8">
+            <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="font-bold mb-4">About Image Splitter</h3>
+                    <p>An advanced online tool to split images into multiple grid sections with ease and precision.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Quick Links</h3>
+                    <ul>
+                        <li><a href="#" class="hover:text-blue-300">Home</a></li>
+                        <li><a href="#features" class="hover:text-blue-300">Features</a></li>
+                        <li><a href="#privacy" class="hover:text-blue-300">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Contact</h3>
+                    <p>Email: support@imagesplitter.com</p>
+                    <p>© 2024 Image Splitter. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Recreate hooks-like functionality without modern React
+        function createState(initialValue) {
+            let value = initialValue;
+            const listeners = [];
+            return {
+                get current() { return value; },
+                set current(newValue) {
+                    value = newValue;
+                    listeners.forEach(listener => listener(value));
+                },
+                subscribe(listener) {
+                    listeners.push(listener);
+                    return () => {
+                        const index = listeners.indexOf(listener);
+                        if (index > -1) listeners.splice(index, 1);
+                    };
+                }
+            };
+        }
+
+        function ImageSplitter() {
+            const imageState = createState(null);
+            const originalGridPreviewState = createState(null);
+            const splitImagesState = createState([]);
+            const rowsState = createState(2);
+            const columnsState = createState(2);
+
+            const fileInputRef = { current: null };
+
+            function createGridPreview(img) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                ctx.drawImage(img, 0, 0);
+                ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+                ctx.lineWidth = 2;
+
+                const cellWidth = img.width / columnsState.current;
+                const cellHeight = img.height / rowsState.current;
+
+                for (let row = 1; row < rowsState.current; row++) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, row * cellHeight);
+                    ctx.lineTo(img.width, row * cellHeight);
+                    ctx.stroke();
+                }
+
+                for (let col = 1; col < columnsState.current; col++) {
+                    ctx.beginPath();
+                    ctx.moveTo(col * cellWidth, 0);
+                    ctx.lineTo(col * cellWidth, img.height);
+                    ctx.stroke();
+                }
+
+                return canvas.toDataURL();
+            }
+
+            function handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            imageState.current = img;
+                            originalGridPreviewState.current = createGridPreview(img);
+                            splitImagesState.current = [];
+                            render();
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            function splitImage() {
+                if (!imageState.current) return;
+
+                const splitResult = [];
+                const cellWidth = Math.floor(imageState.current.width / columnsState.current);
+                const cellHeight = Math.floor(imageState.current.height / rowsState.current);
+
+                for (let row = 0; row < rowsState.current; row++) {
+                    for (let col = 0; col < columnsState.current; col++) {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = cellWidth;
+                        canvas.height = cellHeight;
+
+                        ctx.drawImage(
+                            imageState.current,
+                            col * cellWidth, 
+                            row * cellHeight, 
+                            cellWidth, 
+                            cellHeight,
+                            0, 
+                            0, 
+                            cellWidth, 
+                            cellHeight
+                        );
+
+                        splitResult.push({
+                            dataUrl: canvas.toDataURL(),
+                            filename: `split_image_row${row+1}_col${col+1}.png`
+                        });
+                    }
+                }
+
+                splitImagesState.current = splitResult;
+                render();
+            }
+
+            async function downloadAllImages() {
+                const JSZip = window.JSZip;
+                const zip = new JSZip();
+                const imageFolder = zip.folder('split_images');
+
+                splitImagesState.current.forEach((img) => {
+                    imageFolder.file(img.filename, img.dataUrl.split(',')[1], {base64: true});
+                });
+
+                const content = await zip.generateAsync({type: 'blob'});
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = 'split_images.zip';
+                link.click();
+            }
+
+            function downloadSingleImage(dataUrl, filename) {
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = filename;
+                link.click();
+            }
+
+            function render() {
+                const app = document.getElementById('image-splitter-app');
+                app.innerHTML = `
+                    <div class="max-w-4xl mx-auto">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <div 
+                                    id="upload-area"
+                                    class="border-2 border-dashed border-gray-300 p-8 text-center cursor-pointer hover:border-blue-500 transition"
+                                >
+                                    <input 
+                                        type="file" 
+                                        id="file-input"
+                                        accept="image/*"
+                                        class="hidden"
+                                    />
+                                    <p class="text-gray-600">Upload Image</p>
+                                </div>
+
+                                <div class="mt-4 grid grid-cols-3 gap-2">
+                                    <input 
+                                        type="number" 
+                                        id="rows-input"
+                                        value="${rowsState.current}" 
+                                        placeholder="Rows" 
+                                        class="p-2 border rounded"
+                                    />
+                                    <input 
+                                        type="number" 
+                                        id="columns-input"
+                                        value="${columnsState.current}" 
+                                        placeholder="Columns" 
+                                        class="p-2 border rounded"
+                                    />
+                                    <button 
+                                        id="split-button"
+                                        class="p-2 bg-blue-500 text-white rounded ${!imageState.current ? 'opacity-50' : ''}"
+                                    >
+                                        Split Image
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div>
+                                ${originalGridPreviewState.current ? `
+                                    <div class="mb-4">
+                                        <h2 class="text-xl mb-2">Original Image Preview</h2>
+                                        <img 
+                                            src="${originalGridPreviewState.current}" 
+                                            alt="Grid Preview" 
+                                            class="max-w-full h-auto"
+                                        />
+                                    </div>
+                                ` : ''}
+
+                                ${splitImagesState.current.length > 0 ? `
+                                    <div>
+                                        <h2 class="text-xl mb-2">Split Results</h2>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            ${splitImagesState.current.map((img, index) => `
+                                                <div class="relative">
+                                                    <img 
+                                                        src="${img.dataUrl}" 
+                                                        alt="Split ${index + 1}"
+                                                        class="w-full h-auto object-cover"
+                                                    />
+                                                    <button 
+                                                        data-index="${index}"
+                                                        class="download-single-btn absolute bottom-0 right-0 m-1 px-2 py-1 bg-green-500 text-white text-xs rounded"
+                                                    >
+                                                        Download
+                                                    </button>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                        <button 
+                                            id="download-all-btn"
+                                            class="mt-4 w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                        >
+                                            Download All Images (ZIP)
+                                        </button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Event Listeners
+                const uploadArea = document.getElementById('upload-area');
+                const fileInput = document.getElementById('file-input');
+                const rowsInput = document.getElementById('rows-input');
+                const columnsInput = document.getElementById('columns-input');
+                const splitButton = document.getElementById('split-button');
+                const downloadAllBtn = document.getElementById('download-all-btn');
+
+                uploadArea.addEventListener('click', () => fileInput.click());
+                fileInput.addEventListener('change', handleImageUpload);
+
+                rowsInput.addEventListener('change', (e) => {
+                    const value = Math.max(1, Math.min(10, Number(e.target.value)));
+                    rowsState.current = value;
+                    e.target.value = value;
+                });
+
+                columnsInput.addEventListener('change', (e) => {
+                    const value = Math.max(1, Math.min(10, Number(e.target.value)));
+                    columnsState.current = value;
+                    e.target.value = value;
+                });
+
+                if (splitButton) {
+                    splitButton.addEventListener('click', splitImage);
+                }
+
+                if (downloadAllBtn) {
+                    downloadAllBtn.addEventListener('click', downloadAllImages);
+                }
+
+                const downloadSingleBtns = document.querySelectorAll('.download-single-btn');
+                downloadSingleBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.target.getAttribute('data-index');
+                        const img = splitImagesState.current[index];
+                        downloadSingleImage(img.dataUrl, img.filename);
+                    });
+                });
+            }
+
+            // Initial render
+            render();
+        }
+
+        // Initialize the application
+        ImageSplitter();
+    </script>
+</body>
+</html>
