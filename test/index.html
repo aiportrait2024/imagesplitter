@@ -119,18 +119,17 @@
                     canvas.width = cellWidth;
                     canvas.height = cellHeight;
 
-                    ctx.draw
-                                            <img Image(
-                        imageState,
-                        col * cellWidth, 
-                        row * cellHeight, 
-                        cellWidth, 
-                        cellHeight,
-                        0, 
-                        0, 
-                        cellWidth, 
-                        cellHeight
-                    );
+                    ctx.drawImage(
+    imageState,
+    col * cellWidth, 
+    row * cellHeight, 
+    cellWidth, 
+    cellHeight,
+    0, 
+    0, 
+    cellWidth, 
+    cellHeight
+);
 
                     splitResult.push({
                         dataUrl: canvas.toDataURL(),
@@ -231,19 +230,20 @@
                                 <h2 class="text-xl mb-2 text-center">Split Results</h2>
                                 <div class="grid grid-cols-3 gap-2">
                                     ${splitImagesState.map((img, index) => `
-                                        <div class="relative">
-                                                src="${img.dataUrl}" 
-                                                alt="Split ${index + 1}"
-                                                class="w-full h-auto object-cover"
-                                            />
-                                            <button 
-                                                data-index="${index}"
-                                                class="download-single-btn absolute bottom-0 right-0 m-1 px-2 py-1 bg-green-500 text-white text-xs rounded"
-                                            >
-                                                Download
-                                            </button>
-                                        </div>
-                                    `).join('')}
+    <div class="relative">
+        <img 
+            src="${img.dataUrl}" 
+            alt="Split ${index + 1}"
+            class="w-full h-auto object-cover"
+        />
+        <button 
+            data-index="${index}"
+            class="download-single-btn absolute bottom-0 right-0 m-1 px-2 py-1 bg-green-500 text-white text-xs rounded"
+        >
+            Download
+        </button>
+    </div>
+`).join('')}
                                 </div>
                                 <button 
                                     id="download-all-btn"
