@@ -23,61 +23,6 @@
 
         <main class="flex-grow container mx-auto px-4 py-8">
             <div id="image-splitter-app"></div>
-    <!-- SEO Content Starts Here -->
-            <section class="bg-white shadow-md rounded-lg p-6 mt-8">
-                <h2 class="text-2xl font-bold mb-4">What is the Image Splitter ?</h2>
-                <p> is a user-friendly online tool that allows users to divide their images into smaller parts. Whether you're a designer, social media manager, or someone who loves creating visuals, this tool is perfect for producing professional-quality results in just a few clicks.</p>
-
-                <h2 class="text-2xl font-bold mt-6 mb-4">Why Use the Image Splitter?</h2>
-                <ul class="list-disc pl-6">
-                    <li>Convenient Design Work: Quickly divide large images into grids or equal parts for layout purposes.</li>
-                    <li>Social Media Optimization: Create perfect-sized visuals for Instagram grids or other platforms.</li>
-                    <li>Printing Needs: Split images for creating banners, posters, or tiled printing.</li>
-                    <li>Photo Collages: Generate seamless split images for creative photo collages.</li>
-                    <li>Custom Projects: Adapt images for puzzles, stickers, and much more.</li>
-                </ul>
-
-                <h2 class="text-2xl font-bold mt-6 mb-4">How to Use the Image Splitter ?</h2>
-                <ol class="list-decimal pl-6">
-                    <li>Upload Your Image: Drag and drop or click to upload.</li>
-                    <li>Choose Splitting Options: Select grid dimensions (e.g., 2x2, 3x3) or custom sizes.</li>
-                    <li>Preview and Adjust: Preview how your image will be divided.</li>
-                    <li>Download Your Files: Save the split images individually or as a zip file.</li>
-                </ol>
-
-                <h2 class="text-2xl font-bold mt-6 mb-4">FAQs</h2>
-                <div class="space-y-4">
-                    <div>
-                        <h3 class="font-semibold">How do I upload an image on the Image Splitter?</h3>
-                        <p>Upload your image by dragging it into the upload area or clicking the "Upload Image" button.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">Can I split images into unequal parts?</h3>
-                        <p>Yes, you can use custom dimensions to split images into unequal sections.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">What image formats are supported?</h3>
-                        <p>The Image Splitter supports PNG, JPG, BMP, and other popular image formats.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">Is the Image Splitter free to use?</h3>
-                        <p>Yes, basic features are completely free, with no hidden charges.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">How can I download the split images?</h3>
-                        <p>Once your image is split, click the "Download" button to save the parts.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">Is my uploaded image safe on the Image Splitter?</h3>
-                        <p>Yes, your images are securely processed and deleted after splitting.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">Can I split images on my phone?</h3>
-                        <p>Absolutely! The tool works on all devices, including smartphones and tablets.</p>
-                    </div>
-                </div>
-            </section>
-            <!-- SEO Content Ends Here -->
         </main>
 
         <footer class="bg-gray-800 text-white py-8">
@@ -175,3 +120,251 @@
                     canvas.height = cellHeight;
 
                     ctx.draw
+                                            <img Image(
+                        imageState,
+                        col * cellWidth, 
+                        row * cellHeight, 
+                        cellWidth, 
+                        cellHeight,
+                        0, 
+                        0, 
+                        cellWidth, 
+                        cellHeight
+                    );
+
+                    splitResult.push({
+                        dataUrl: canvas.toDataURL(),
+                        filename: `split_image_row${row+1}_col${col+1}.png`
+                    });
+                }
+            }
+
+            splitImagesState = splitResult;
+            render();
+        }
+
+        async function downloadAllImages() {
+            const JSZip = window.JSZip;
+            const zip = new JSZip();
+            const imageFolder = zip.folder('split_images');
+
+            splitImagesState.forEach((img) => {
+                imageFolder.file(img.filename, img.dataUrl.split(',')[1], {base64: true});
+            });
+
+            const content = await zip.generateAsync({type: 'blob'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = 'split_images.zip';
+            link.click();
+        }
+
+        function downloadSingleImage(dataUrl, filename) {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = filename;
+            link.click();
+        }
+
+        function render() {
+            const app = document.getElementById('image-splitter-app');
+            app.innerHTML = `
+                <div class="max-w-2xl mx-auto flex flex-col items-center">
+                    <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Best Image Splitter Online</h2>
+                    
+                    <div class="w-full">
+                        <div 
+                            id="upload-area"
+                            class="border-2 border-dashed border-gray-300 p-12 text-center cursor-pointer hover:border-blue-500 transition w-full"
+                        >
+                            <input 
+                                type="file" 
+                                id="file-input"
+                                accept="image/*"
+                                class="hidden"
+                            />
+                            <p class="text-gray-600">Upload Image</p>
+                        </div>
+
+                        <div class="mt-4 flex justify-center space-x-2">
+                            <input 
+                                type="number" 
+                                id="rows-input"
+                                value="${rowsState}" 
+                                placeholder="Rows" 
+                                class="p-2 border rounded w-20"
+                                min="1"
+                                max="10"
+                            />
+                            <input 
+                                type="number" 
+                                id="columns-input"
+                                value="${columnsState}" 
+                                placeholder="Columns" 
+                                class="p-2 border rounded w-20"
+                                min="1"
+                                max="10"
+                            />
+                            <button 
+                                id="split-button"
+                                class="p-2 bg-blue-500 text-white rounded ${!imageState ? 'opacity-50' : ''}"
+                            >
+                                Split Image
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 w-full">
+                        ${originalGridPreviewState ? `
+                            <div class="mb-4">
+                                <h2 class="text-xl mb-2 text-center">Original Image Preview</h2>
+                                <img 
+                                    src="${originalGridPreviewState}" 
+                                    alt="Grid Preview" 
+                                    class="max-w-full h-auto mx-auto"
+                                />
+                            </div>
+                        ` : ''}
+
+                        ${splitImagesState.length > 0 ? `
+                            <div>
+                                <h2 class="text-xl mb-2 text-center">Split Results</h2>
+                                <div class="grid grid-cols-3 gap-2">
+                                    ${splitImagesState.map((img, index) => `
+                                        <div class="relative">
+                                                src="${img.dataUrl}" 
+                                                alt="Split ${index + 1}"
+                                                class="w-full h-auto object-cover"
+                                            />
+                                            <button 
+                                                data-index="${index}"
+                                                class="download-single-btn absolute bottom-0 right-0 m-1 px-2 py-1 bg-green-500 text-white text-xs rounded"
+                                            >
+                                                Download
+                                            </button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button 
+                                    id="download-all-btn"
+                                    class="mt-4 w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                >
+                                    Download All Images (ZIP)
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                   <!-- SEO Content Starts Here -->
+            <section class="bg-white shadow-md rounded-lg p-6 mt-8">
+                <h2 class="text-2xl font-bold mb-4">What is the Image Splitter ?</h2>
+                <p> is a user-friendly online tool that allows users to divide their images into smaller parts. Whether you're a designer, social media manager, or someone who loves creating visuals, this tool is perfect for producing professional-quality results in just a few clicks.</p>
+
+                <h2 class="text-2xl font-bold mt-6 mb-4">Why Use the Image Splitter?</h2>
+                <ul class="list-disc pl-6">
+                    <li>Convenient Design Work: Quickly divide large images into grids or equal parts for layout purposes.</li>
+                    <li>Social Media Optimization: Create perfect-sized visuals for Instagram grids or other platforms.</li>
+                    <li>Printing Needs: Split images for creating banners, posters, or tiled printing.</li>
+                    <li>Photo Collages: Generate seamless split images for creative photo collages.</li>
+                    <li>Custom Projects: Adapt images for puzzles, stickers, and much more.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mt-6 mb-4">How to Use the Image Splitter ?</h2>
+                <ol class="list-decimal pl-6">
+                    <li>Upload Your Image: Drag and drop or click to upload.</li>
+                    <li>Choose Splitting Options: Select grid dimensions (e.g., 2x2, 3x3) or custom sizes.</li>
+                    <li>Preview and Adjust: Preview how your image will be divided.</li>
+                    <li>Download Your Files: Save the split images individually or as a zip file.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold mt-6 mb-4">FAQs</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-semibold">How do I upload an image on the Image Splitter?</h3>
+                        <p>Upload your image by dragging it into the upload area or clicking the "Upload Image" button.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Can I split images into unequal parts?</h3>
+                        <p>Yes, you can use custom dimensions to split images into unequal sections.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">What image formats are supported?</h3>
+                        <p>The Image Splitter supports PNG, JPG, BMP, and other popular image formats.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Is the Image Splitter free to use?</h3>
+                        <p>Yes, basic features are completely free, with no hidden charges.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">How can I download the split images?</h3>
+                        <p>Once your image is split, click the "Download" button to save the parts.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Is my uploaded image safe on the Image Splitter?</h3>
+                        <p>Yes, your images are securely processed and deleted after splitting.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Can I split images on my phone?</h3>
+                        <p>Absolutely! The tool works on all devices, including smartphones and tablets.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- SEO Content Ends Here -->
+            `;
+
+            // Event Listeners
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const rowsInput = document.getElementById('rows-input');
+            const columnsInput = document.getElementById('columns-input');
+            const splitButton = document.getElementById('split-button');
+            const downloadAllBtn = document.getElementById('download-all-btn');
+
+            uploadArea.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleImageUpload);
+
+            rowsInput.addEventListener('change', (e) => {
+                const value = Math.max(1, Math.min(10, Number(e.target.value)));
+                rowsState = value;
+                e.target.value = value;
+                if (imageState) {
+                    originalGridPreviewState = createGridPreview(imageState);
+                    render();
+                }
+            });
+
+            columnsInput.addEventListener('change', (e) => {
+                const value = Math.max(1, Math.min(10, Number(e.target.value)));
+                columnsState = value;
+                e.target.value = value;
+                if (imageState) {
+                    originalGridPreviewState = createGridPreview(imageState);
+                    render();
+                }
+            });
+
+            if (splitButton) {
+                splitButton.addEventListener('click', splitImage);
+            }
+
+            if (downloadAllBtn) {
+                downloadAllBtn.addEventListener('click', downloadAllImages);
+            }
+
+            const downloadSingleBtns = document.querySelectorAll('.download-single-btn');
+            downloadSingleBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    const img = splitImagesState[index];
+                    downloadSingleImage(img.dataUrl, img.filename);
+                });
+            });
+        }
+
+        // Initial render
+        render();
+    })();
+    </script>
+</body>
+</html>
+
