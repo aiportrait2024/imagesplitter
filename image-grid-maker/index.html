@@ -23,22 +23,60 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
-        h1, h2 {
-            color: #2c3e50;
+        h1 {
+            font-size: 2.5rem;
+            color: #1E40AF;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #1E40AF;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: #2563EB;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        p, li {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
         }
         a {
-            color: #3498db;
+            color: #2563EB;
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
         }
-        .emoji {
-            font-size: 1.2em;
+        .cta-button {
+            display: inline-block;
+            background-color: #2563EB;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #1D4ED8;
+            transform: translateY(-2px);
+        }
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
