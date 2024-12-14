@@ -31,86 +31,152 @@
             </div>
         </header>
 
-        <main class="flex-grow container mx-auto px-4 py-8">
-            <div id="image-splitter-app"></div>
-    <h1>Instagram Photo Splitter: Create Eye-Catching Instagram Grids in Minutes</h1>
+       import Link from 'next/link'
 
-    <p>If you’re an Instagram enthusiast or just someone who loves sharing visually stunning content, you’ve probably seen those amazing Instagram grids. You know the ones—photos that span multiple posts, creating a seamless and mesmerizing mosaic on your profile. Want to know the secret behind these eye-catching grids? It's called an <strong>Instagram photo splitter</strong>!</p>
+export default function InstagramPhotoSplitter() {
+  return (
+    <main className="flex-grow container mx-auto px-4 py-12 bg-gradient-to-b from-blue-50 to-white">
+      <div id="image-splitter-app" className="mb-8"></div>
+      <article className="prose lg:prose-xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 text-blue-800">
+          Instagram Photo Splitter: Create Eye-Catching Instagram Grids in Minutes
+        </h1>
 
-    <p>In this post, we’re diving deep into everything you need to know about Instagram photo splitters, how they work, and why you should be using one. Whether you're a content creator, business owner, or just someone who loves to post beautiful visuals, this guide will help you take your Instagram game to the next level.</p>
+        <p className="text-lg text-gray-700 mb-6">
+          If you're an Instagram enthusiast or just someone who loves sharing visually stunning content, you've probably seen those amazing Instagram grids. You know the ones—photos that span multiple posts, creating a seamless and mesmerizing mosaic on your profile. Want to know the secret behind these eye-catching grids? It's called an <strong className="text-blue-700">Instagram photo splitter</strong>!
+        </p>
 
-    <h2>What is an Instagram Photo Splitter?</h2>
-    <p>An Instagram photo splitter is a tool that allows you to split a single image into multiple smaller images that you can then post on your Instagram profile. When these images are viewed together, they form a larger, cohesive picture. This technique is often referred to as a "photo grid" or "Instagram grid layout."</p>
+        <p className="text-lg text-gray-700 mb-6">
+          In this post, we're diving deep into everything you need to know about Instagram photo splitters, how they work, and why you should be using one. Whether you're a content creator, business owner, or just someone who loves to post beautiful visuals, this guide will help you take your Instagram game to the next level.
+        </p>
 
-    <p>Why would you want to split a photo in the first place? Well, it’s a creative way to enhance the visual appeal of your Instagram profile, increase engagement, and draw more attention to your posts. Plus, it adds a touch of artistry that can help your profile stand out from the crowd.</p>
+        <h2 className="text-3xl font-semibold text-blue-800 mt-12 mb-6">What is an Instagram Photo Splitter?</h2>
+        <p className="text-lg text-gray-700 mb-6">
+          An Instagram photo splitter is a tool that allows you to split a single image into multiple smaller images that you can then post on your Instagram profile. When these images are viewed together, they form a larger, cohesive picture. This technique is often referred to as a "photo grid" or "Instagram grid layout."
+        </p>
 
-    <h2>Why Should You Use an Instagram Photo Splitter?</h2>
-    <h3>1. Enhance Your Instagram Aesthetic</h3>
-    <p>An Instagram grid is visually striking. When done right, it creates a stunning layout that turns your profile into a piece of art. The split photo layout makes your profile look more organized, appealing, and professional, which can attract more followers and increase engagement.</p>
+        <p className="text-lg text-gray-700 mb-6">
+          Why would you want to split a photo in the first place? Well, it's a creative way to enhance the visual appeal of your Instagram profile, increase engagement, and draw more attention to your posts. Plus, it adds a touch of artistry that can help your profile stand out from the crowd.
+        </p>
 
-    <h3>2. Showcase High-Quality Content</h3>
-    <p>Sometimes, you have an image that’s just too good to crop or resize. With an Instagram photo splitter, you can break that image into smaller parts without losing any of its detail or quality. This means you can showcase every aspect of your picture without sacrificing resolution.</p>
+        <h2 className="text-3xl font-semibold text-blue-800 mt-12 mb-6">Why Should You Use an Instagram Photo Splitter?</h2>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">1. Enhance Your Instagram Aesthetic</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          An Instagram grid is visually striking. When done right, it creates a stunning layout that turns your profile into a piece of art. The split photo layout makes your profile look more organized, appealing, and professional, which can attract more followers and increase engagement.
+        </p>
 
-    <h3>3. Attract More Engagement</h3>
-    <p>When people see a photo grid on your Instagram profile, they’re more likely to stop scrolling and take a closer look. This increases the chances of getting more likes, comments, and follows. The more visually appealing your profile, the better your chances of standing out in a crowded feed.</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">2. Showcase High-Quality Content</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Sometimes, you have an image that's just too good to crop or resize. With an Instagram photo splitter, you can break that image into smaller parts without losing any of its detail or quality. This means you can showcase every aspect of your picture without sacrificing resolution.
+        </p>
 
-    <h3>4. Creative Storytelling</h3>
-    <p>Using a splitter tool allows you to tell a story through your photos. Each section of the grid could reveal part of a larger narrative, encouraging viewers to explore your profile more thoroughly. This creative approach can make your content more memorable and engaging.</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">3. Attract More Engagement</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          When people see a photo grid on your Instagram profile, they're more likely to stop scrolling and take a closer look. This increases the chances of getting more likes, comments, and follows. The more visually appealing your profile, the better your chances of standing out in a crowded feed.
+        </p>
 
-    <h2>How to Use an Instagram Photo Splitter</h2>
-    <p>Using an Instagram photo splitter is super simple, even if you’re not a tech-savvy individual. You don’t need advanced design skills, just a good image and the right tool to split it. Here’s how you can do it:</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">4. Creative Storytelling</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Using a splitter tool allows you to tell a story through your photos. Each section of the grid could reveal part of a larger narrative, encouraging viewers to explore your profile more thoroughly. This creative approach can make your content more memorable and engaging.
+        </p>
 
-    <ol>
-        <li><strong>Choose the Right Photo</strong><br>Start by selecting a high-quality image that you want to split. Remember, the more detailed your photo, the better it will look when split into a grid.</li>
-        <li><strong>Use an Instagram Photo Splitter Tool</strong><br>Now that you’ve got your image, it’s time to split it. You can use online tools like <a href="https://imagesplitters.com/" target="_blank">Image Splitters</a> to easily divide your photo into the desired number of pieces. These tools will automatically break your image into equal parts, ensuring a smooth and professional result.</li>
-        <li><strong>Upload the Pieces to Instagram</strong><br>Once your photo is split, you can upload the pieces to Instagram. Start with the bottom-right piece, then work your way left and upwards in the grid pattern. This will ensure that the images align perfectly when someone views your profile.</li>
-        <li><strong>Use Captions and Hashtags</strong><br>Don’t forget to add captions and relevant hashtags to each of your posts. This will help increase engagement and visibility on your photos, driving more traffic to your profile.</li>
-    </ol>
+        <h2 className="text-3xl font-semibold text-blue-800 mt-12 mb-6">How to Use an Instagram Photo Splitter</h2>
+        <p className="text-lg text-gray-700 mb-6">
+          Using an Instagram photo splitter is super simple, even if you're not a tech-savvy individual. You don't need advanced design skills, just a good image and the right tool to split it. Here's how you can do it:
+        </p>
 
-    <p><strong>Pro Tip:</strong> Use the <a href="https://imagesplitters.com/" target="_blank">Image Splitter Tool</a> to ensure your image is split precisely, making it easy to upload each piece in the correct order!</p>
+        <ol className="list-decimal list-inside space-y-4 mb-6">
+          <li className="text-lg text-gray-700">
+            <strong className="text-blue-700">Choose the Right Photo</strong><br />
+            Start by selecting a high-quality image that you want to split. Remember, the more detailed your photo, the better it will look when split into a grid.
+          </li>
+          <li className="text-lg text-gray-700">
+            <strong className="text-blue-700">Use an Instagram Photo Splitter Tool</strong><br />
+            Now that you've got your image, it's time to split it. You can use online tools like <Link href="https://imagesplitters.com/" target="_blank" className="text-blue-600 hover:underline">Image Splitters</Link> to easily divide your photo into the desired number of pieces. These tools will automatically break your image into equal parts, ensuring a smooth and professional result.
+          </li>
+          <li className="text-lg text-gray-700">
+            <strong className="text-blue-700">Upload the Pieces to Instagram</strong><br />
+            Once your photo is split, you can upload the pieces to Instagram. Start with the bottom-right piece, then work your way left and upwards in the grid pattern. This will ensure that the images align perfectly when someone views your profile.
+          </li>
+          <li className="text-lg text-gray-700">
+            <strong className="text-blue-700">Use Captions and Hashtags</strong><br />
+            Don't forget to add captions and relevant hashtags to each of your posts. This will help increase engagement and visibility on your photos, driving more traffic to your profile.
+          </li>
+        </ol>
 
-    <h2>Best Practices for Creating an Instagram Grid</h2>
-    <p>Creating an Instagram grid that stands out takes a little planning and thought. Here are a few tips to get the most out of your photo splitter tool:</p>
+        <p className="text-lg text-gray-700 mb-6">
+          <strong className="text-blue-700">Pro Tip:</strong> Use the <Link href="https://imagesplitters.com/" target="_blank" className="text-blue-600 hover:underline">Image Splitter Tool</Link> to ensure your image is split precisely, making it easy to upload each piece in the correct order!
+        </p>
 
-    <h3>1. Choose Images That Work Well Together</h3>
-    <p>Not all photos are suitable for splitting into grids. It’s best to choose images that have a clear focal point or a cohesive theme. This ensures that when your photo is split, it still looks great across multiple posts.</p>
+        <h2 className="text-3xl font-semibold text-blue-800 mt-12 mb-6">Best Practices for Creating an Instagram Grid</h2>
+        <p className="text-lg text-gray-700 mb-6">
+          Creating an Instagram grid that stands out takes a little planning and thought. Here are a few tips to get the most out of your photo splitter tool:
+        </p>
 
-    <h3>2. Pay Attention to the Grid Size</h3>
-    <p>Different grid sizes work better for different types of photos. For instance:</p>
-    <ul>
-        <li>A <strong>3x3 grid</strong> is great for larger, more detailed images.</li>
-        <li>A <strong>6x6 grid</strong> is perfect for panoramas or wide-angle shots.</li>
-        <li>A <strong>2x2 grid</strong> works well for simple, clean images that don’t have too many elements.</li>
-    </ul>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">1. Choose Images That Work Well Together</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Not all photos are suitable for splitting into grids. It's best to choose images that have a clear focal point or a cohesive theme. This ensures that when your photo is split, it still looks great across multiple posts.
+        </p>
 
-    <h3>3. Consider Your Profile Layout</h3>
-    <p>Think about how your grid will look when someone visits your profile. You can create patterns or themes with multiple posts, but make sure your grid complements your overall Instagram aesthetic.</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">2. Pay Attention to the Grid Size</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Different grid sizes work better for different types of photos. For instance:
+        </p>
+        <ul className="list-disc list-inside space-y-2 mb-6">
+          <li className="text-lg text-gray-700">A <strong className="text-blue-700">3x3 grid</strong> is great for larger, more detailed images.</li>
+          <li className="text-lg text-gray-700">A <strong className="text-blue-700">6x6 grid</strong> is perfect for panoramas or wide-angle shots.</li>
+          <li className="text-lg text-gray-700">A <strong className="text-blue-700">2x2 grid</strong> works well for simple, clean images that don't have too many elements.</li>
+        </ul>
 
-    <h3>4. Don’t Overdo It</h3>
-    <p>While Instagram grids can be stunning, posting too many split photos in a row can make your profile look cluttered. Try to mix up your content with other posts to keep your feed balanced and interesting.</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">3. Consider Your Profile Layout</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Think about how your grid will look when someone visits your profile. You can create patterns or themes with multiple posts, but make sure your grid complements your overall Instagram aesthetic.
+        </p>
 
-    <h2>How to Avoid Common Instagram Grid Mistakes</h2>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">4. Don't Overdo It</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          While Instagram grids can be stunning, posting too many split photos in a row can make your profile look cluttered. Try to mix up your content with other posts to keep your feed balanced and interesting.
+        </p>
 
-    <h3>1. Incorrect Image Sizing</h3>
-    <p>Ensure that your images are sized correctly before uploading them to Instagram. Instagram’s post dimensions should be 1080px by 1080px for square images, so make sure the split pieces are resized to fit within this size.</p>
+        <h2 className="text-3xl font-semibold text-blue-800 mt-12 mb-6">How to Avoid Common Instagram Grid Mistakes</h2>
 
-    <h3>2. Forgetting to Number the Pieces</h3>
-    <p>Without a numbering system, it’s easy to get confused when uploading the pieces to Instagram. Always keep track of the order in which your pieces should be posted. This will save you time and frustration when it’s time to upload.</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">1. Incorrect Image Sizing</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Ensure that your images are sized correctly before uploading them to Instagram. Instagram's post dimensions should be 1080px by 1080px for square images, so make sure the split pieces are resized to fit within this size.
+        </p>
 
-    <h3>3. Misaligning the Photos</h3>
-    <p>Alignment is key! Make sure each photo aligns perfectly with the others. If your grid is misaligned, it can ruin the visual impact. Using a precise splitter tool like <a href="https://imagesplitters.com/" target="_blank">Image Splitters</a> can help ensure perfect alignment.</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">2. Forgetting to Number the Pieces</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Without a numbering system, it's easy to get confused when uploading the pieces to Instagram. Always keep track of the order in which your pieces should be posted. This will save you time and frustration when it's time to upload.
+        </p>
 
-    <h2>Conclusion</h2>
-    <p>Using an Instagram photo splitter is an excellent way to take your profile to the next level. It adds a professional, creative touch that will make your content stand out in a crowded feed. With the right tools and a little creativity, you can transform your Instagram into a visually stunning work of art.</p>
+        <h3 className="text-2xl font-semibold text-blue-700 mt-8 mb-4">3. Misaligning the Photos</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Alignment is key! Make sure each photo aligns perfectly with the others. If your grid is misaligned, it can ruin the visual impact. Using a precise splitter tool like <Link href="https://imagesplitters.com/" target="_blank" className="text-blue-600 hover:underline">Image Splitters</Link> can help ensure perfect alignment.
+        </p>
 
-    <p>Ready to try it for yourself? Check out the <a href="https://imagesplitters.com/" target="_blank">Image Splitter Tool</a> and start creating your own photo grids today!</p>
+        <h2 className="text-3xl font-semibold text-blue-800 mt-12 mb-6">Conclusion</h2>
+        <p className="text-lg text-gray-700 mb-6">
+          Using an Instagram photo splitter is an excellent way to take your profile to the next level. It adds a professional, creative touch that will make your content stand out in a crowded feed. With the right tools and a little creativity, you can transform your Instagram into a visually stunning work of art.
+        </p>
 
-    <div style="text-align: center;">
-        <a href="https://imagesplitters.com/" target="_blank" style="display: inline-block; padding: 15px 30px; background-color: #3B82f6; color: #fff; font-size: 18px; text-decoration: none; border-radius: 5px; margin-top: 20px;">Try the Image Splitter Tool Now!</a>
-    </div>
+        <p className="text-lg text-gray-700 mb-6">
+          Ready to try it for yourself? Check out the <Link href="https://imagesplitters.com/" target="_blank" className="text-blue-600 hover:underline">Image Splitter Tool</Link> and start creating your own photo grids today!
+        </p>
 
-    <p>By following these tips and using the right tools, you can create Instagram grids that are not only eye-catching but also engaging. Happy splitting!</p>
-        </main>
+        <div className="text-center my-12">
+          <Link href="https://imagesplitters.com/" target="_blank" className="inline-block px-8 py-4 bg-blue-600 text-white text-xl font-semibold rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+            Try the Image Splitter Tool Now!
+          </Link>
+        </div>
+
+        <p className="text-lg text-gray-700 mb-6">
+          By following these tips and using the right tools, you can create Instagram grids that are not only eye-catching but also engaging. Happy splitting!
+        </p>
+      </article>
+    </main>
+  )
+}
 
         <footer class="bg-gray-800 text-white py-8">
             <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
